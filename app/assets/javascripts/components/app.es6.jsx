@@ -9,21 +9,27 @@ class App extends React.Component {
 
   componentDidMount(){
     $.ajax({
-
+      url: '/movies/recent',
+      method: 'get'
+    }).done((response) => {
+      this.setState({
+        movies: response
+      })
     })
   }
 
-  handleMovieSearch(movie){
+  handleMovieSearch(movies){
     this.setState({
-      movie: movie
+      movies: movies
     })
   }
 
   render(){
-
+    
     return(
       <section className="container">
-        <Search movies={this.movie.bind(this)}/>
+        <Search filtered_movies={this.handleMovieSearch.bind(this)}/>
+        <List movies={this.state.movies}/>
       </section>
     )
   }
