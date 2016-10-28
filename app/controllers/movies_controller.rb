@@ -1,7 +1,8 @@
 class MoviesController < ApplicationController
-  def index
-  end
+  require 'unirest'
 
-  def create
+  def recent
+    response = Unirest.get "http://www.omdbapi.com/?y#{Time.now.year}"
+    render json: movies
   end
 end
